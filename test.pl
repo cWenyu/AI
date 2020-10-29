@@ -1,4 +1,6 @@
 % facts
+is_root(animal).
+
 mammal(subclass,animal).
 mammal(moving_method,walk).
 mammal(social_behavior,social_animal).
@@ -44,37 +46,19 @@ sheep(month_of_pregnant_period,5).
 
 paddi(instance,sheep).
 
-iscallable(mammal).                                                          
-iscallable(herbivorous). 
-iscallable(sheep).
-iscallable(paddi).
-iscallable(horse).
-iscallable(applejack).
-iscallable(omnivorous). 
-iscallable(panda). 
-iscallable(tuantuan).
-iscallable(human). 
-iscallable(aotianlong).
-iscallable(carnivorous).  
-iscallable(whale). 
-iscallable(alice).
-iscallable(lion).
-iscallable(simba).
-
 % Rules Bratko Code V2, reference:
 
 value( Frame, Slot, Value) :-
-    iscallable(Frame),
+	\+ is_root(Frame),
 	Query =.. [ Frame, Slot, Value],
-	call( Query),!.
-
-
+	call(Query),!.
+	
 value( Frame, Slot, Value) :-
-	parent( Frame, ParentFrame),
+    parent( Frame, ParentFrame),
 	value( ParentFrame, Slot, Value).
 
 parent( Frame, ParentFrame) :-
-    iscallable(Frame),
+    \+ is_root(Frame),
 	(Query =.. [Frame, instance, ParentFrame]
 	;
 	Query =.. [Frame, subclass, ParentFrame]),
