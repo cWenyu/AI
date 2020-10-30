@@ -46,14 +46,19 @@ sheep(month_of_pregnant_period,5).
 
 paddi(instance,sheep).
 
+% Unique condition
+is_unique(panda,social_behavior).
+is_unique(whale,moving_method).
+
 % Rules Bratko Code V2, reference:
 
 value( Frame, Slot, Value) :-
 	\+ is_root(Frame),
 	Query =.. [ Frame, Slot, Value],
 	call(Query),!.
-	
+
 value( Frame, Slot, Value) :-
+	\+ is_unique(Frame,Slot),
     parent( Frame, ParentFrame),
 	value( ParentFrame, Slot, Value).
 
